@@ -373,6 +373,158 @@ ul {
   gap: 16px;
 }
 
+.hero-urgency {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 28px;
+  opacity: 1;
+}
+
+/* Three Tens — Straight Line certainty */
+.three-tens {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 48px 0;
+}
+
+.three-tens-headline {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+.three-tens-headline strong {
+  color: var(--color-accent);
+}
+
+.three-tens-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ten-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.ten-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-accent), #ddb83a);
+  color: var(--color-dark);
+  font-size: 1.25rem;
+  font-weight: 800;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.ten-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.ten-card p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.certainty-list {
+  margin: 20px 0 28px;
+}
+
+.certainty-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.certainty-list li::before {
+  content: "✓";
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.action-threshold {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.form-threshold {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.inventory-urgency {
+  text-align: center;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.08));
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: var(--radius);
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 40px;
+}
+
+.inventory-urgency a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Objection Loop */
+.objections {
+  background: var(--color-bg);
+}
+
+.objection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.objection-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.objection-card h3 {
+  font-size: 1.1rem;
+  color: var(--color-dark);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.objection-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.objection-card .btn {
+  align-self: flex-start;
+}
+
 .hero-compact {
   min-height: auto;
   padding: calc(var(--header-height) + 48px) 0 32px;
@@ -548,8 +700,14 @@ ul {
 
 .need-finder-result p {
   color: var(--color-text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 12px;
   line-height: 1.6;
+}
+
+.need-finder-certainty {
+  font-weight: 600;
+  color: var(--color-primary) !important;
+  margin-bottom: 28px !important;
 }
 
 .need-finder-result-actions {
@@ -1241,6 +1399,14 @@ ul {
   }
 
   .need-finder-options {
+    grid-template-columns: 1fr;
+  }
+
+  .three-tens-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .objection-grid {
     grid-template-columns: 1fr;
   }
 

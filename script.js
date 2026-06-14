@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initNeedFinder();
   applyInquiryFromUrl();
+  initInquiryLinks();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -149,12 +150,12 @@ const FINDER_ICONS = {
 const FINDER_STEPS = {
   start: {
     progress: 33,
-    question: "What would you like to do?",
-    hint: "Choose the option that best matches your goal.",
+    question: "What's your goal today?",
+    hint: "Pick one — we'll take you straight to the right solution.",
     options: [
-      { id: "buy", label: "Buy a golf cart", desc: "Shop new EPIC & ICON models", icon: "cart", next: "buy-use" },
-      { id: "rent", label: "Rent a golf cart", desc: "Weekends, events, tours & more", icon: "calendar", next: "rent-need" },
-      { id: "service", label: "Service my golf cart", desc: "Maintenance, repairs & upgrades", icon: "wrench", next: "service-need" },
+      { id: "rent", label: "Rent a golf cart", desc: "Our #1 specialty — book with certainty", icon: "calendar", next: "rent-need" },
+      { id: "service", label: "Service my golf cart", desc: "Expert repairs — back on the road fast", icon: "wrench", next: "service-need" },
+      { id: "buy", label: "Buy a golf cart", desc: "In-stock EPIC & ICON — lock in pricing", icon: "cart", next: "buy-use" },
       { id: "battery", label: "Battery help", desc: "Lithium upgrades & replacements", icon: "battery", next: "battery-need" },
       { id: "unsure", label: "I'm not sure yet", desc: "We'll help you figure it out", icon: "help", next: "unsure-help" },
     ],
@@ -172,8 +173,8 @@ const FINDER_STEPS = {
   },
   "rent-need": {
     progress: 66,
-    question: "What kind of rental do you need?",
-    hint: "We offer daily, multi-day, and group rates.",
+    question: "When do you need the cart?",
+    hint: "Peak dates fill up — the sooner you reserve, the more certain you are.",
     options: [
       { id: "weekend", label: "Weekend getaway", desc: "1–3 days around the lake", icon: "calendar", result: "rent-weekend" },
       { id: "event", label: "Wedding or special event", desc: "Group carts for guests", icon: "heart", result: "rent-event" },
@@ -208,120 +209,127 @@ const FINDER_STEPS = {
     hint: "Our team can walk you through every option.",
     options: [
       { id: "call", label: "Call us now", desc: "(702) 577-2222 — any day, any time", icon: "help", result: "call-now" },
-      { id: "quote", label: "Get a custom quote", desc: "Tell us what you're looking for", icon: "cart", result: "general-quote" },
-      { id: "browse", label: "Browse inventory first", desc: "See what's in stock", icon: "cart", result: "browse-inventory" },
+      { id: "rent", label: "Request a rental", desc: "Our most popular service", icon: "calendar", result: "rent-general" },
+      { id: "service", label: "Schedule service", desc: "Maintenance or repairs", icon: "wrench", result: "service-maint" },
+      { id: "browse-sales", label: "Browse carts for sale", desc: "See in-stock models & pricing", icon: "cart", result: "browse-inventory" },
     ],
   },
 };
 
 const FINDER_RESULTS = {
   "buy-personal": {
-    title: "Perfect — let's find your cart",
-    text: "Browse our in-stock EPIC models built for personal and neighborhood use. Prices start at $9,000.00.",
-    primary: { label: "View Golf Carts for Sale", href: "#inventory" },
-    secondary: { label: "Get a Quote", href: "#contact", inquiry: "quote" },
+    title: "You've made the right call",
+    text: "Owning a cart for lake life is a great decision. Our in-stock EPIC models start at $9,000.00 — absolutely the best value in Nevada.",
+    primary: { label: "See What's In Stock", href: "#inventory" },
+    secondary: { label: "Lock In My Quote", href: "#contact", inquiry: "quote" },
   },
   "buy-commercial": {
-    title: "Commercial & fleet solutions",
-    text: "We offer the best prices on golf carts for commercial use with EPIC and ICON models in multiple sizes.",
+    title: "Fleet & commercial — we've got you",
+    text: "We'll put together the best fleet pricing on EPIC and ICON models. No runaround — just straight numbers.",
     primary: { label: "View Inventory", href: "#inventory" },
-    secondary: { label: "Request Fleet Pricing", href: "#contact", inquiry: "quote" },
+    secondary: { label: "Get Fleet Pricing Now", href: "#contact", inquiry: "quote" },
   },
   "buy-lsv": {
-    title: "Street-legal LSV carts",
-    text: "Our EPIC and ICON models are available as street-legal LSVs. We can also help with compliance upgrades.",
+    title: "Street-legal LSV — done right",
+    text: "Our EPIC and ICON street-legal LSVs are in stock and fully compliant. You'll drive off with total peace of mind.",
     primary: { label: "Shop Street-Legal Carts", href: "#inventory" },
-    secondary: { label: "Ask About LSV Requirements", href: "#contact", inquiry: "buy" },
+    secondary: { label: "Talk to an Expert", href: "#contact", inquiry: "buy" },
   },
   "test-drive": {
-    title: "Schedule your test drive",
-    text: "Experience the cart before you buy. Contact us to schedule a test drive at your convenience.",
-    primary: { label: "Schedule a Test Drive", href: "#contact", inquiry: "test-drive" },
-    secondary: { label: "View Inventory", href: "#inventory" },
+    title: "Smart move — test drive first",
+    text: "You'll know within five minutes if it's the right cart. Let's schedule your drive — no pressure, just certainty.",
+    primary: { label: "Schedule My Test Drive", href: "#contact", inquiry: "test-drive" },
+    secondary: { label: "Browse Inventory", href: "#inventory" },
+  },
+  "rent-general": {
+    title: "Rentals are what we do best",
+    text: "Without a doubt, we'll find the right cart for your dates. Multi-day and group rates that beat the competition.",
+    primary: { label: "See Rental Options", href: "#rentals" },
+    secondary: { label: "Yes — Reserve My Rental", href: "#contact", inquiry: "rent" },
   },
   "rent-weekend": {
-    title: "Weekend rentals",
-    text: "Great rates for weekends around Lake Las Vegas. Perfect for a quick getaway.",
-    primary: { label: "Learn About Rentals", href: "#rentals" },
-    secondary: { label: "Request a Rental", href: "#contact", inquiry: "rent" },
+    title: "Weekend sorted — let's lock it in",
+    text: "Picture yourself cruising the lake Saturday morning. We'll make that happen — but weekend carts go fast.",
+    primary: { label: "Reserve My Weekend Cart", href: "#contact", inquiry: "rent" },
+    secondary: { label: "See Rental Details", href: "#rentals" },
   },
   "rent-event": {
-    title: "Event & wedding rentals",
-    text: "Group rates for weddings, parties, and special events. 2, 4, and 6-passenger carts available.",
-    primary: { label: "See Rental Options", href: "#rentals" },
-    secondary: { label: "Submit Rental Enquiry", href: "#contact", inquiry: "rent" },
+    title: "Your event deserves this",
+    text: "Weddings and group events are our specialty. 2, 4, and 6-passenger carts — delivered and ready. Absolutely stress-free.",
+    primary: { label: "Yes — Book Event Carts", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Learn More", href: "#rentals" },
   },
   "rent-tour": {
-    title: "Multi-day tour rentals",
-    text: "Planning a longer trip? We offer multi-day and group rates with delivery available.",
-    primary: { label: "Explore Rentals", href: "#rentals" },
-    secondary: { label: "Get Rental Pricing", href: "#contact", inquiry: "rent" },
+    title: "Multi-day tour — perfect fit",
+    text: "Extended trips need reliable carts and fair pricing. We've got both — delivery included.",
+    primary: { label: "Get My Tour Pricing", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Explore Rentals", href: "#rentals" },
   },
   "rent-long": {
-    title: "Longer-term rentals",
-    text: "Weekly and monthly rental options available. Contact us for custom long-term pricing.",
-    primary: { label: "Rental Information", href: "#rentals" },
-    secondary: { label: "Request a Quote", href: "#contact", inquiry: "rent" },
+    title: "Long-term rental — smart choice",
+    text: "Weekly and monthly rates that make sense. Call us and we'll put together a number you'll feel great about.",
+    primary: { label: "Lock In Long-Term Rate", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Rental Info", href: "#rentals" },
   },
   "service-maint": {
-    title: "Routine maintenance",
-    text: "Keep your cart running smoothly with tune-ups, tire service, brake checks, and more.",
-    primary: { label: "View Our Services", href: "#service" },
-    secondary: { label: "Schedule Service", href: "#contact", inquiry: "service" },
+    title: "Maintenance keeps you moving",
+    text: "Don't wait for a breakdown. Routine service now means zero surprises later — that's certainty.",
+    primary: { label: "Yes — Book My Service", href: "#contact", inquiry: "service" },
+    secondary: { label: "View Services", href: "#service" },
   },
   "service-repair": {
-    title: "Repairs & diagnostics",
-    text: "Our technicians handle electrical, mechanical, and suspension repairs to get you back on the road.",
-    primary: { label: "Service Details", href: "#service" },
-    secondary: { label: "Submit Service Request", href: "#contact", inquiry: "service" },
-  },
-  "service-lsv": {
-    title: "Street-legal compliance",
-    text: "We offer LSV compliance upgrades including pedestrian alert systems and safety requirements.",
-    primary: { label: "Learn About Service", href: "#service" },
-    secondary: { label: "Contact Our Team", href: "#contact", inquiry: "service" },
-  },
-  "service-urgent": {
-    title: "Priority service needed",
-    text: "Cart won't run? Call us at (702) 577-2222 or submit a service request and we'll get back to you quickly.",
+    title: "We'll fix it — guaranteed effort",
+    text: "Something's off? Our techs diagnose fast and repair right. You'll be back on the cart path before you know it.",
     primary: { label: "Submit Service Request", href: "#contact", inquiry: "service" },
     secondary: { label: "Call (702) 577-2222", href: "tel:7025772222" },
   },
+  "service-lsv": {
+    title: "LSV compliance — handled",
+    text: "Street-legal requirements are non-negotiable. We'll upgrade your cart to full compliance — done professionally.",
+    primary: { label: "Schedule Compliance Work", href: "#contact", inquiry: "service" },
+    secondary: { label: "Service Details", href: "#service" },
+  },
+  "service-urgent": {
+    title: "Cart down? We're on it.",
+    text: "Call (702) 577-2222 now — or submit a priority request below. We treat urgent jobs with urgency. Period.",
+    primary: { label: "Priority Service Request", href: "#contact", inquiry: "service" },
+    secondary: { label: "Call Now", href: "tel:7025772222" },
+  },
   "battery-lithium": {
-    title: "Lithium battery upgrade",
-    text: "Complete lithium replacement systems from $2,700.00 — built for the desert, perfect for cart life at the lake.",
-    primary: { label: "Battery Upgrade Info", href: "#battery" },
-    secondary: { label: "Get Battery Quote", href: "#contact", inquiry: "battery" },
+    title: "Lithium upgrade — worth every penny",
+    text: "Complete systems from $2,700.00. Longer range, less maintenance, built for desert heat. You'll feel the difference immediately.",
+    primary: { label: "Lock In Battery Quote", href: "#contact", inquiry: "battery" },
+    secondary: { label: "Learn More", href: "#battery" },
   },
   "battery-replace": {
-    title: "Battery replacement",
-    text: "We'll assess your current setup and recommend the best replacement — including full lithium conversions.",
-    primary: { label: "Learn About Batteries", href: "#battery" },
-    secondary: { label: "Request a Quote", href: "#contact", inquiry: "battery" },
+    title: "Time for new batteries",
+    text: "We'll assess your pack and recommend the best path — including full lithium conversion if it makes sense for you.",
+    primary: { label: "Get My Battery Quote", href: "#contact", inquiry: "battery" },
+    secondary: { label: "Battery Info", href: "#battery" },
   },
   "battery-help": {
-    title: "We'll figure it out together",
-    text: "Not sure what you need? Our battery specialists will diagnose and recommend the right solution.",
-    primary: { label: "Battery Services", href: "#battery" },
-    secondary: { label: "Contact Us", href: "#contact", inquiry: "battery" },
+    title: "Not sure? We'll diagnose it",
+    text: "Our battery specialists will tell you exactly what you need — no upsell, no guesswork. Just a straight answer.",
+    primary: { label: "Talk to a Specialist", href: "#contact", inquiry: "battery" },
+    secondary: { label: "Battery Services", href: "#battery" },
   },
   "call-now": {
-    title: "Talk to our team",
-    text: "We're here to help any day, any time. Call (702) 577-2222 or email sales@lakelasvegasgolfcarts.com.",
+    title: "Best move — call now",
+    text: "You'll get a real person who can answer every question in under two minutes. (702) 577-2222 — any day, any time.",
     primary: { label: "Call (702) 577-2222", href: "tel:7025772222" },
-    secondary: { label: "Send a Message", href: "#contact", inquiry: "quote" },
+    secondary: { label: "Send a Quick Message", href: "#contact", inquiry: "quote" },
   },
   "general-quote": {
-    title: "Get a custom quote",
-    text: "Tell us what you're looking for and our dealership will respond with the best prices and options.",
-    primary: { label: "Get a Quote", href: "#contact", inquiry: "quote" },
+    title: "Let's get you a number",
+    text: "Tell us what you need and we'll come back with the best price — fast, fair, and no games.",
+    primary: { label: "Get My Quote", href: "#contact", inquiry: "quote" },
     secondary: { label: "Browse Inventory", href: "#inventory" },
   },
   "browse-inventory": {
-    title: "Browse our inventory",
-    text: "Explore in-stock EPIC models with pricing from $9,000.00. When you're ready, request a quote.",
-    primary: { label: "View Golf Carts for Sale", href: "#inventory" },
-    secondary: { label: "Get a Quote", href: "#contact", inquiry: "quote" },
+    title: "Here's what's in stock",
+    text: "EPIC models from $9,000.00 — limited availability. When you see the right one, lock in the price before it's gone.",
+    primary: { label: "View Carts for Sale", href: "#inventory" },
+    secondary: { label: "Lock In My Quote", href: "#contact", inquiry: "quote" },
   },
 };
 
@@ -383,6 +391,7 @@ function initNeedFinder() {
         <div class="need-finder-result-icon">${FINDER_ICONS.check}</div>
         <h3>${result.title}</h3>
         <p>${result.text}</p>
+        <p class="need-finder-certainty">You're in the right place — let's move forward.</p>
         <div class="need-finder-result-actions">
           <a href="${result.primary.href}" class="btn btn-primary finder-cta" data-inquiry="${result.primary.inquiry || ""}">${result.primary.label}</a>
           ${result.secondary ? `<a href="${result.secondary.href}" class="btn btn-outline-dark finder-cta" data-inquiry="${result.secondary.inquiry || ""}">${result.secondary.label}</a>` : ""}
@@ -436,4 +445,18 @@ function applyInquiryFromUrl() {
     applyInquiryPreset(inquiry);
     sessionStorage.removeItem("llvgc-inquiry");
   }
+}
+
+function initInquiryLinks() {
+  document.querySelectorAll("[data-inquiry]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const inquiry = link.dataset.inquiry;
+      const href = link.getAttribute("href");
+      if (!inquiry || !href?.startsWith("#")) return;
+      e.preventDefault();
+      applyInquiryPreset(inquiry);
+      sessionStorage.setItem("llvgc-inquiry", inquiry);
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    });
+  });
 }
