@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const contactForm = document.getElementById("contact-form");
-  const newsletterForm = document.getElementById("newsletter-form");
 
   contactForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -70,35 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => success?.classList.remove("visible"), 5000);
     } catch {
       alert("Something went wrong. Please call us at (702) 577-2222 or email sales@lakelasvegasgolfcarts.com.");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    }
-  });
-
-  newsletterForm?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const emailInput = newsletterForm.querySelector("input[type=email]");
-    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-
-    if (!emailInput?.value) return;
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Subscribing...";
-
-    try {
-      await sendForm({
-        _subject: "Lake Las Vegas Golf Carts — Newsletter Signup",
-        Email: emailInput.value,
-        Message: "New newsletter subscription request",
-      });
-
-      alert("Thank you for subscribing! We'll send you exclusive offers soon.");
-      newsletterForm.reset();
-    } catch {
-      alert("Something went wrong. Please email sales@lakelasvegasgolfcarts.com to subscribe.");
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
@@ -150,31 +120,31 @@ const FINDER_ICONS = {
 const FINDER_STEPS = {
   start: {
     progress: 33,
-    question: "What's your goal today?",
-    hint: "Pick one — we'll take you straight to the right solution.",
+    question: "What do you need?",
+    hint: "Select the service that best describes your situation.",
     options: [
-      { id: "rent", label: "Rent a golf cart", desc: "Our #1 specialty — book with certainty", icon: "calendar", next: "rent-need" },
-      { id: "service", label: "Service my golf cart", desc: "Expert repairs — back on the road fast", icon: "wrench", next: "service-need" },
-      { id: "buy", label: "Buy a golf cart", desc: "In-stock EPIC & ICON — lock in pricing", icon: "cart", next: "buy-use" },
-      { id: "battery", label: "Battery help", desc: "Lithium upgrades & replacements", icon: "battery", next: "battery-need" },
-      { id: "unsure", label: "I'm not sure yet", desc: "We'll help you figure it out", icon: "help", next: "unsure-help" },
+      { id: "rent", label: "Rent a golf cart", desc: "Lake Las Vegas & Las Vegas area rentals", icon: "calendar", next: "rent-need" },
+      { id: "service", label: "Service my golf cart", desc: "Maintenance, repairs & upgrades", icon: "wrench", next: "service-need" },
+      { id: "buy", label: "Buy a golf cart", desc: "New or used — personal, neighborhood, or fleet", icon: "cart", next: "buy-use" },
+      { id: "battery", label: "Battery service", desc: "Lithium upgrade or lead-acid replacement", icon: "battery", next: "battery-need" },
+      { id: "unsure", label: "I'm not sure", desc: "We'll point you to the right service", icon: "help", next: "unsure-help" },
     ],
   },
   "buy-use": {
     progress: 66,
-    question: "What will you use the cart for?",
-    hint: "This helps us recommend the right models and pricing.",
+    question: "Who is the golf cart for?",
+    hint: "This helps us match you with the right new or used cart.",
     options: [
-      { id: "personal", label: "Personal & neighborhood", desc: "Lake community, HOA, or home use", icon: "home", result: "buy-personal" },
-      { id: "commercial", label: "Commercial property", desc: "Resort, HOA fleet, or business", icon: "building", result: "buy-commercial" },
-      { id: "street-legal", label: "Street-legal LSV", desc: "Licensed for roads up to 25 mph", icon: "cart", result: "buy-lsv" },
-      { id: "test-drive", label: "Schedule a test drive", desc: "Try before you buy", icon: "cart", result: "test-drive" },
+      { id: "personal", label: "Personal use", desc: "Individual owner at home or lake community", icon: "home", result: "buy-personal" },
+      { id: "commercial", label: "Business or corporate fleet", desc: "Resort, commercial property, or organization", icon: "building", result: "buy-commercial" },
+      { id: "street-legal", label: "Street-legal LSV", desc: "Neighborhood cart licensed for roads", icon: "cart", result: "buy-lsv" },
+      { id: "test-drive", label: "Schedule a test drive", desc: "Try a cart before purchasing", icon: "cart", result: "test-drive" },
     ],
   },
   "rent-need": {
     progress: 66,
-    question: "When do you need the cart?",
-    hint: "Peak dates fill up — the sooner you reserve, the more certain you are.",
+    question: "What type of rental do you need?",
+    hint: "We rent golf carts throughout Lake Las Vegas and the Las Vegas area.",
     options: [
       { id: "weekend", label: "Weekend getaway", desc: "1–3 days around the lake", icon: "calendar", result: "rent-weekend" },
       { id: "event", label: "Wedding or special event", desc: "Group carts for guests", icon: "heart", result: "rent-event" },
@@ -199,7 +169,7 @@ const FINDER_STEPS = {
     hint: "Complete lithium systems start at $2,700.00.",
     options: [
       { id: "lithium", label: "Upgrade to lithium", desc: "Longer range, less maintenance", icon: "battery", result: "battery-lithium" },
-      { id: "replace", label: "Replace my batteries", desc: "Old or failing battery pack", icon: "battery", result: "battery-replace" },
+      { id: "replace", label: "Replace lead-acid batteries", desc: "Traditional flooded or AGM pack replacement", icon: "battery", result: "battery-replace" },
       { id: "unsure-battery", label: "Not sure what's needed", desc: "We'll diagnose and recommend", icon: "help", result: "battery-help" },
     ],
   },
@@ -218,118 +188,118 @@ const FINDER_STEPS = {
 
 const FINDER_RESULTS = {
   "buy-personal": {
-    title: "You've made the right call",
-    text: "Owning a cart for lake life is a great decision. Our in-stock EPIC models start at $9,000.00 — absolutely the best value in Nevada.",
-    primary: { label: "See What's In Stock", href: "#inventory" },
-    secondary: { label: "Lock In My Quote", href: "#contact", inquiry: "quote" },
+    title: "Personal golf cart sales",
+    text: "We sell new and used golf carts for personal use in Lake Las Vegas, Henderson, and the Las Vegas area. In-stock EPIC models start at $9,000.00.",
+    primary: { label: "View Carts for Sale", href: "#inventory" },
+    secondary: { label: "Request a Sales Quote", href: "#contact", inquiry: "buy" },
   },
   "buy-commercial": {
-    title: "Fleet & commercial — we've got you",
-    text: "We'll put together the best fleet pricing on EPIC and ICON models. No runaround — just straight numbers.",
+    title: "Business & corporate fleet carts",
+    text: "We provide golf carts for business and corporate fleet use including resorts, commercial properties, and organizations. Contact us for fleet pricing on new and used carts.",
     primary: { label: "View Inventory", href: "#inventory" },
-    secondary: { label: "Get Fleet Pricing Now", href: "#contact", inquiry: "quote" },
+    secondary: { label: "Request Fleet Pricing", href: "#contact", inquiry: "buy" },
   },
   "buy-lsv": {
-    title: "Street-legal LSV — done right",
-    text: "Our EPIC and ICON street-legal LSVs are in stock and fully compliant. You'll drive off with total peace of mind.",
-    primary: { label: "Shop Street-Legal Carts", href: "#inventory" },
-    secondary: { label: "Talk to an Expert", href: "#contact", inquiry: "buy" },
+    title: "Street-legal neighborhood carts",
+    text: "We sell street-legal LSV golf carts suited for lake communities and HOA neighborhoods. EPIC and ICON models available.",
+    primary: { label: "View Carts for Sale", href: "#inventory" },
+    secondary: { label: "Ask About LSV Carts", href: "#contact", inquiry: "buy" },
   },
   "test-drive": {
-    title: "Smart move — test drive first",
-    text: "You'll know within five minutes if it's the right cart. Let's schedule your drive — no pressure, just certainty.",
-    primary: { label: "Schedule My Test Drive", href: "#contact", inquiry: "test-drive" },
-    secondary: { label: "Browse Inventory", href: "#inventory" },
+    title: "Schedule a test drive",
+    text: "Visit our Lake Las Vegas area dealership to test drive a golf cart before you buy. Call or submit a request to schedule.",
+    primary: { label: "Schedule a Test Drive", href: "#contact", inquiry: "test-drive" },
+    secondary: { label: "View Inventory", href: "#inventory" },
   },
   "rent-general": {
-    title: "Rentals are what we do best",
-    text: "Without a doubt, we'll find the right cart for your dates. Multi-day and group rates that beat the competition.",
-    primary: { label: "See Rental Options", href: "#rentals" },
-    secondary: { label: "Yes — Reserve My Rental", href: "#contact", inquiry: "rent" },
+    title: "Golf cart rentals — Lake Las Vegas & Las Vegas",
+    text: "Rentals are our primary service. We provide golf carts for Lake Las Vegas, Henderson, and throughout the greater Las Vegas area.",
+    primary: { label: "Rental Information", href: "#rentals" },
+    secondary: { label: "Request a Rental Quote", href: "#contact", inquiry: "rent" },
   },
   "rent-weekend": {
-    title: "Weekend sorted — let's lock it in",
-    text: "Picture yourself cruising the lake Saturday morning. We'll make that happen — but weekend carts go fast.",
-    primary: { label: "Reserve My Weekend Cart", href: "#contact", inquiry: "rent" },
-    secondary: { label: "See Rental Details", href: "#rentals" },
+    title: "Weekend golf cart rental",
+    text: "Rent a golf cart for a weekend at Lake Las Vegas or elsewhere in the Las Vegas area. Daily and multi-day rates available.",
+    primary: { label: "Request a Rental Quote", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Rental Details", href: "#rentals" },
   },
   "rent-event": {
-    title: "Your event deserves this",
-    text: "Weddings and group events are our specialty. 2, 4, and 6-passenger carts — delivered and ready. Absolutely stress-free.",
-    primary: { label: "Yes — Book Event Carts", href: "#contact", inquiry: "rent" },
-    secondary: { label: "Learn More", href: "#rentals" },
+    title: "Event & wedding rentals",
+    text: "We rent multiple golf carts for weddings, parties, and corporate events in Lake Las Vegas and the Las Vegas area. Group rates available.",
+    primary: { label: "Request Event Rental Quote", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Learn About Rentals", href: "#rentals" },
   },
   "rent-tour": {
-    title: "Multi-day tour — perfect fit",
-    text: "Extended trips need reliable carts and fair pricing. We've got both — delivery included.",
-    primary: { label: "Get My Tour Pricing", href: "#contact", inquiry: "rent" },
-    secondary: { label: "Explore Rentals", href: "#rentals" },
+    title: "Multi-day tour rental",
+    text: "Extended golf cart rentals for tours and sightseeing across the Las Vegas area. Delivery available within our service area.",
+    primary: { label: "Get Rental Pricing", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Rental Information", href: "#rentals" },
   },
   "rent-long": {
-    title: "Long-term rental — smart choice",
-    text: "Weekly and monthly rates that make sense. Call us and we'll put together a number you'll feel great about.",
-    primary: { label: "Lock In Long-Term Rate", href: "#contact", inquiry: "rent" },
-    secondary: { label: "Rental Info", href: "#rentals" },
+    title: "Long-term rental",
+    text: "Weekly and monthly golf cart rentals available for Lake Las Vegas residents and Las Vegas area customers.",
+    primary: { label: "Request Long-Term Quote", href: "#contact", inquiry: "rent" },
+    secondary: { label: "Rental Details", href: "#rentals" },
   },
   "service-maint": {
-    title: "Maintenance keeps you moving",
-    text: "Don't wait for a breakdown. Routine service now means zero surprises later — that's certainty.",
-    primary: { label: "Yes — Book My Service", href: "#contact", inquiry: "service" },
-    secondary: { label: "View Services", href: "#service" },
+    title: "Golf cart maintenance",
+    text: "Routine maintenance and tune-ups for golf cart owners in Lake Las Vegas, Henderson, and the Las Vegas area.",
+    primary: { label: "Schedule Service", href: "#contact", inquiry: "service" },
+    secondary: { label: "View Service Details", href: "#service" },
   },
   "service-repair": {
-    title: "We'll fix it — guaranteed effort",
-    text: "Something's off? Our techs diagnose fast and repair right. You'll be back on the cart path before you know it.",
+    title: "Golf cart repair",
+    text: "Mechanical and electrical golf cart repairs performed by our Henderson-area service team.",
     primary: { label: "Submit Service Request", href: "#contact", inquiry: "service" },
     secondary: { label: "Call (702) 577-2222", href: "tel:7025772222" },
   },
   "service-lsv": {
-    title: "LSV compliance — handled",
-    text: "Street-legal requirements are non-negotiable. We'll upgrade your cart to full compliance — done professionally.",
-    primary: { label: "Schedule Compliance Work", href: "#contact", inquiry: "service" },
-    secondary: { label: "Service Details", href: "#service" },
+    title: "Street-legal LSV compliance",
+    text: "LSV compliance upgrades for neighborhood and street-legal golf carts including safety and regulatory requirements.",
+    primary: { label: "Schedule Service", href: "#contact", inquiry: "service" },
+    secondary: { label: "Service Information", href: "#service" },
   },
   "service-urgent": {
-    title: "Cart down? We're on it.",
-    text: "Call (702) 577-2222 now — or submit a priority request below. We treat urgent jobs with urgency. Period.",
+    title: "Urgent service needed",
+    text: "If your golf cart won't run, call (702) 577-2222 or submit a priority service request. We serve Lake Las Vegas and the Las Vegas area.",
     primary: { label: "Priority Service Request", href: "#contact", inquiry: "service" },
     secondary: { label: "Call Now", href: "tel:7025772222" },
   },
   "battery-lithium": {
-    title: "Lithium upgrade — worth every penny",
-    text: "Complete systems from $2,700.00. Longer range, less maintenance, built for desert heat. You'll feel the difference immediately.",
-    primary: { label: "Lock In Battery Quote", href: "#contact", inquiry: "battery" },
-    secondary: { label: "Learn More", href: "#battery" },
+    title: "Lithium battery upgrade",
+    text: "Complete lithium battery replacement systems from $2,700.00 with professional installation. Ideal for Nevada heat and daily use.",
+    primary: { label: "Request Battery Quote", href: "#contact", inquiry: "battery" },
+    secondary: { label: "Battery Information", href: "#battery" },
   },
   "battery-replace": {
-    title: "Time for new batteries",
-    text: "We'll assess your pack and recommend the best path — including full lithium conversion if it makes sense for you.",
-    primary: { label: "Get My Battery Quote", href: "#contact", inquiry: "battery" },
-    secondary: { label: "Battery Info", href: "#battery" },
-  },
-  "battery-help": {
-    title: "Not sure? We'll diagnose it",
-    text: "Our battery specialists will tell you exactly what you need — no upsell, no guesswork. Just a straight answer.",
-    primary: { label: "Talk to a Specialist", href: "#contact", inquiry: "battery" },
+    title: "Lead-acid battery replacement",
+    text: "We replace lead-acid battery packs and test charging systems to restore reliable power to your golf cart.",
+    primary: { label: "Request Battery Quote", href: "#contact", inquiry: "battery" },
     secondary: { label: "Battery Services", href: "#battery" },
   },
+  "battery-help": {
+    title: "Battery diagnosis",
+    text: "Not sure whether you need lithium or lead-acid replacement? Our technicians will assess your cart and recommend the right solution.",
+    primary: { label: "Contact Our Team", href: "#contact", inquiry: "battery" },
+    secondary: { label: "Battery Information", href: "#battery" },
+  },
   "call-now": {
-    title: "Best move — call now",
-    text: "You'll get a real person who can answer every question in under two minutes. (702) 577-2222 — any day, any time.",
+    title: "Speak with our team",
+    text: "Call (702) 577-2222 to discuss rentals, service, battery work, or new and used golf cart sales. We serve Lake Las Vegas, Henderson, and Las Vegas.",
     primary: { label: "Call (702) 577-2222", href: "tel:7025772222" },
-    secondary: { label: "Send a Quick Message", href: "#contact", inquiry: "quote" },
+    secondary: { label: "Send a Message", href: "#contact", inquiry: "quote" },
   },
   "general-quote": {
-    title: "Let's get you a number",
-    text: "Tell us what you need and we'll come back with the best price — fast, fair, and no games.",
-    primary: { label: "Get My Quote", href: "#contact", inquiry: "quote" },
-    secondary: { label: "Browse Inventory", href: "#inventory" },
+    title: "Request a quote",
+    text: "Tell us what you need and we will provide pricing for rentals, service, battery work, or golf cart sales.",
+    primary: { label: "Get a Quote", href: "#contact", inquiry: "quote" },
+    secondary: { label: "View Inventory", href: "#inventory" },
   },
   "browse-inventory": {
-    title: "Here's what's in stock",
-    text: "EPIC models from $9,000.00 — limited availability. When you see the right one, lock in the price before it's gone.",
+    title: "New & used golf carts for sale",
+    text: "Browse in-stock new EPIC models. Used carts and fleet packages also available — call for current inventory.",
     primary: { label: "View Carts for Sale", href: "#inventory" },
-    secondary: { label: "Lock In My Quote", href: "#contact", inquiry: "quote" },
+    secondary: { label: "Request a Sales Quote", href: "#contact", inquiry: "buy" },
   },
 };
 
@@ -391,7 +361,7 @@ function initNeedFinder() {
         <div class="need-finder-result-icon">${FINDER_ICONS.check}</div>
         <h3>${result.title}</h3>
         <p>${result.text}</p>
-        <p class="need-finder-certainty">You're in the right place — let's move forward.</p>
+        <p class="need-finder-certainty">Recommended next step based on your answers:</p>
         <div class="need-finder-result-actions">
           <a href="${result.primary.href}" class="btn btn-primary finder-cta" data-inquiry="${result.primary.inquiry || ""}">${result.primary.label}</a>
           ${result.secondary ? `<a href="${result.secondary.href}" class="btn btn-outline-dark finder-cta" data-inquiry="${result.secondary.inquiry || ""}">${result.secondary.label}</a>` : ""}
