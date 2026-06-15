@@ -201,7 +201,7 @@ const FINDER_RESULTS = {
   },
   "buy-lsv": {
     title: "Street-legal neighborhood carts",
-    text: "We sell street-legal LSV golf carts suited for lake communities and HOA neighborhoods. EPIC and ICON models available.",
+    text: "We sell street-legal LSV golf carts suited for lake communities and HOA neighborhoods. EPIC, ICON, and SOLANA EV models available.",
     primary: { label: "View Carts for Sale", href: "#inventory" },
     secondary: { label: "Ask About LSV Carts", href: "#contact", inquiry: "buy" },
   },
@@ -297,7 +297,7 @@ const FINDER_RESULTS = {
   },
   "browse-inventory": {
     title: "New & used golf carts for sale",
-    text: "Browse in-stock new EPIC models. Used carts and fleet packages also available — call for current inventory.",
+    text: "Browse in-stock new EPIC and SOLANA EV models. Used carts and fleet packages also available — call for current inventory.",
     primary: { label: "View Carts for Sale", href: "#inventory" },
     secondary: { label: "Request a Sales Quote", href: "#contact", inquiry: "buy" },
   },
