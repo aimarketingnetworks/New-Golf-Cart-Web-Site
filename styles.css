@@ -333,7 +333,7 @@ ul {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 62% 38%;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: 40px;
   align-items: center;
   position: relative;
@@ -1738,18 +1738,8 @@ ul {
 /* Responsive */
 @media (max-width: 1024px) {
   .hero-grid {
-    grid-template-columns: 1fr;
     gap: 28px;
-  }
-
-  .hero-image {
-    justify-content: center;
-    max-height: 220px;
-  }
-
-  .hero-image img {
-    max-width: 280px;
-    max-height: 220px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   }
 
   .action-grid {
@@ -1814,10 +1804,11 @@ ul {
   .contact-grid,
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 28px;
   }
 
   .hero-image {
+    justify-content: center;
     max-height: 200px;
   }
 
