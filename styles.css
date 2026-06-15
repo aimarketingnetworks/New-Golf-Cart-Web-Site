@@ -331,11 +331,43 @@ ul {
   background: linear-gradient(to top, var(--color-bg), transparent);
 }
 
+.hero-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 720px;
   color: var(--color-white);
+}
+
+.hero-grid .hero-content {
+  max-width: 720px;
+}
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  max-height: 400px;
+}
+
+.hero-image img {
+  display: block;
+  height: 400px;
+  width: auto;
+  max-width: none;
+  transform: rotate(90deg);
+  object-fit: cover;
+  border-radius: var(--radius-lg);
 }
 
 .hero-badge {
@@ -1705,6 +1737,19 @@ ul {
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-image {
+    max-height: 320px;
+  }
+
+  .hero-image img {
+    height: 320px;
+  }
+
   .action-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1764,9 +1809,18 @@ ul {
 
   .about-grid,
   .feature-grid,
-  .contact-grid {
+  .contact-grid,
+  .hero-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .hero-image {
+    max-height: 280px;
+  }
+
+  .hero-image img {
+    height: 280px;
   }
 
   .feature-grid.reverse .feature-image,
