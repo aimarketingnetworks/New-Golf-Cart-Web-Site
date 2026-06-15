@@ -357,15 +357,15 @@ ul {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  max-height: 260px;
+  max-height: 390px;
 }
 
 .hero-image img {
   display: block;
   width: 100%;
-  max-width: 300px;
+  max-width: 450px;
   height: auto;
-  max-height: 260px;
+  max-height: 390px;
   object-fit: contain;
   border-radius: var(--radius-lg);
 }
@@ -1742,6 +1742,15 @@ ul {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   }
 
+  .hero-image {
+    max-height: 330px;
+  }
+
+  .hero-image img {
+    max-width: 420px;
+    max-height: 330px;
+  }
+
   .action-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1809,12 +1818,12 @@ ul {
 
   .hero-image {
     justify-content: center;
-    max-height: 200px;
+    max-height: 300px;
   }
 
   .hero-image img {
-    max-width: 260px;
-    max-height: 200px;
+    max-width: 390px;
+    max-height: 300px;
   }
 
   .feature-grid.reverse .feature-image,
